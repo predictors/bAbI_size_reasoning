@@ -14,3 +14,5 @@ Is the box of chocolates bigger than the container?
 Does the chocolate fit in the chest?
 Is the chocolate bigger than the chest?
 Does the box of chocolates fit in the container?
+
+You can find a live demo at https://predictors.ai/bAbI_size_reasoning_predictor_1
