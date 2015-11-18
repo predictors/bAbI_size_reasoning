@@ -1,5 +1,7 @@
 # bAbI size reasoning predictor
 
+You can find a live demo at https://predictors.ai/bAbI_size_reasoning_predictor_1
+
 This predictor answers questions contained in the bAbI size reasoning task.
 
 It is based on the sample code available for the Keras library at https://github.com/fchollet/keras/blob/master/examples/babi_rnn.py
@@ -25,6 +27,3 @@ Does the chocolate fit in the chest?
 Is the chocolate bigger than the chest?
 
 Does the box of chocolates fit in the container?
-
-
-You can find a live demo at https://predictors.ai/bAbI_size_reasoning_predictor_1
