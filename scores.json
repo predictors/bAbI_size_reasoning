@@ -1,1 +1,18 @@
-{"schema_version": "0.02", "scores": [{"summary_value": 0.89400000000000002, "name": "Accuracy", "summary_name": "Average accuracy", "class_wise": {"values": [0.89400000000000002], "names": ["qa18_size-reasoning_test.txt"]}}]}
+{
+  "schema_version": "0.02",
+  "scores": [
+    {
+      "summary_value": 0.89400000000000002,
+      "name": "Accuracy",
+      "summary_name": "Average accuracy",
+      "class_wise": {
+        "values": [
+          0.89400000000000002
+        ],
+        "names": [
+          "qa18_size-reasoning_test.txt"
+        ]
+      }
+    }
+  ]
+}
