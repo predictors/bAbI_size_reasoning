@@ -27,74 +27,6 @@ Code forked from https://github.com/fchollet/keras/blob/master/examples/babi_rnn
 '''
 
 
-def tokenize(sent):
-    '''Return the tokens of a sentence including punctuation.
-
-    >>> tokenize('Bob dropped the apple. Where is the apple?')
-    ['Bob', 'dropped', 'the', 'apple', '.', 'Where', 'is', 'the', 'apple', '?']
-    '''
-    return [x.strip() for x in re.split('(\W+)?', sent) if x.strip()]
-
-
-def parse_stories(lines, only_supporting=False):
-    '''Parse stories provided in the bAbi tasks format
-
-    If only_supporting is true, only the sentences that support the answer are kept.
-    '''
-    data = []
-    story = []
-    for line in lines:
-        line = line.decode('utf-8').strip()
-        nid, line = line.split(' ', 1)
-        nid = int(nid)
-        if nid == 1:
-            story = []
-        if '\t' in line:
-            q, a, supporting = line.split('\t')
-            q = tokenize(q)
-            substory = None
-            if only_supporting:
-                # Only select the related substory
-                supporting = map(int, supporting.split())
-                substory = [story[i - 1] for i in supporting]
-            else:
-                # Provide all the substories
-                substory = [x for x in story if x]
-            data.append((substory, q, a))
-            story.append('')
-        else:
-            sent = tokenize(line)
-            story.append(sent)
-    return data
-
-
-def get_stories(f, only_supporting=False, max_length=None):
-    '''Given a file name, read the file, retrieve the stories, and then convert the sentences into a single story.
-
-    If max_length is supplied, any stories longer than max_length tokens will be discarded.
-    '''
-    data = parse_stories(f.readlines(), only_supporting=only_supporting)
-    flatten = lambda data: reduce(lambda x, y: x + y, data)
-    data = [(flatten(story), q, answer) for story, q, answer in data if not max_length or len(flatten(story)) < max_length]
-    return data
-
-
-def save_json_file(**kwargs):
-
-
-    """
-    Saves dictionary in path.
-
-    """
-
-    dict_to_save = kwargs["dict_to_save"]
-    path = kwargs["path"]
-    with open(path,'wb') as fp:
-        json.dump(dict_to_save, fp)
-
-    return
-
-
 class BabiPreditor:
     
     def __init__(self):
@@ -391,3 +323,72 @@ class BabiPreditor:
             output = {"Answer": "Please use allowed words only."}
         
         return output
+    
+    
+def tokenize(sent):
+    '''Return the tokens of a sentence including punctuation.
+
+    >>> tokenize('Bob dropped the apple. Where is the apple?')
+    ['Bob', 'dropped', 'the', 'apple', '.', 'Where', 'is', 'the', 'apple', '?']
+    '''
+    return [x.strip() for x in re.split('(\W+)?', sent) if x.strip()]
+
+
+def parse_stories(lines, only_supporting=False):
+    '''Parse stories provided in the bAbi tasks format
+
+    If only_supporting is true, only the sentences that support the answer are kept.
+    '''
+    data = []
+    story = []
+    for line in lines:
+        line = line.decode('utf-8').strip()
+        nid, line = line.split(' ', 1)
+        nid = int(nid)
+        if nid == 1:
+            story = []
+        if '\t' in line:
+            q, a, supporting = line.split('\t')
+            q = tokenize(q)
+            substory = None
+            if only_supporting:
+                # Only select the related substory
+                supporting = map(int, supporting.split())
+                substory = [story[i - 1] for i in supporting]
+            else:
+                # Provide all the substories
+                substory = [x for x in story if x]
+            data.append((substory, q, a))
+            story.append('')
+        else:
+            sent = tokenize(line)
+            story.append(sent)
+    return data
+
+
+def get_stories(f, only_supporting=False, max_length=None):
+    '''Given a file name, read the file, retrieve the stories, and then convert the sentences into a single story.
+
+    If max_length is supplied, any stories longer than max_length tokens will be discarded.
+    '''
+    data = parse_stories(f.readlines(), only_supporting=only_supporting)
+    flatten = lambda data: reduce(lambda x, y: x + y, data)
+    data = [(flatten(story), q, answer) for story, q, answer in data if not max_length or len(flatten(story)) < max_length]
+    return data
+
+
+def save_json_file(**kwargs):
+
+
+    """
+    Saves dictionary in path.
+
+    """
+
+    dict_to_save = kwargs["dict_to_save"]
+    path = kwargs["path"]
+    with open(path,'wb') as fp:
+        json.dump(dict_to_save, fp)
+
+    return
+
