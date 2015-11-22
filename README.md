@@ -1,6 +1,6 @@
 # bAbI size reasoning predictor
 
-You can find a live demo at https://predictors.ai/bAbI_size_reasoning_predictor_1
+You can find a live demo at https://predictors.ai/bAbI_size_reasoning_predictor
 
 This predictor answers questions contained in the bAbI size reasoning task.
 
